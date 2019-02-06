@@ -16,6 +16,11 @@ external_name: example-site.com
 ##
 # su_password:
 
+## gid of container's user. Necessary if running as a non root user
+## for purposes of writing to mounted volumes
+##
+# group_id: 1000
+
 ingress:
   enabled: false
   annotations: {}
