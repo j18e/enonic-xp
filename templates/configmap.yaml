@@ -28,7 +28,7 @@ data:
     mapping.api.source = /api
     mapping.api.target = /api
 
-    mapping.status.host = {{ .Values.external_name }}
+    mapping.status.host = localhost
     mapping.status.source = /status
     mapping.status.target = /status
 
