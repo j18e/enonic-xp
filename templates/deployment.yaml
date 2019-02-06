@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "enonic-site.chart" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      ## ensures the pod will be redeployed when configmap.yaml changes
+      ##
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image | quote}}
+        volumeMounts:
+        - name: config
+          mountPath: /enonic-xp/home/config
+        - name: repo
+          mountPath: /enonic-xp/home/repo
+        - name: work
+          mountPath: /enonic-xp/home/work
+        - name: snapshots
+          mountPath: /enonic-xp/home/snapshots
+        ports:
+        - name: http
+          containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: http
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.external_name }}
+        readinessProbe:
+          initialDelaySeconds: 15
+          httpGet:
+            path: /status
+            port: http
+            httpHeaders:
+            - name: Host
+              value: {{ .Values.external_name }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Release.Name }}
+      {{- if .Values.persistence.enabled }}
+      - name: repo
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-repo
+      - name: work
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-work
+      - name: snapshots
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-snapshots
+      {{- else }}
+      - name: repo
+        emptyDir: {}
+      - name: work
+        emptyDir: {}
+      - name: snapshots
+        emptyDir: {}
+      {{- end }}
+

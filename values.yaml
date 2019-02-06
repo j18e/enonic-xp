@@ -1,0 +1,39 @@
+## Default values for enonic-site.
+## This is a YAML-formatted file.
+## Declare variables to be passed into your templates.
+
+## the image this chart is to use
+image: enonic/xp-app:latest
+
+## external name for the enonic site. Will be reflected in both the XP config
+## files and in the ingress host, if enabled
+##
+external_name: example-site.com
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: traefik
+
+persistence:
+  ## provision and attach persistent volumes to XP container
+  enabled: false
+  ## default sizes for persistent volumes
+  repo_size: 5Gi
+  work_size: 5Gi
+  snapshots_size: 5Gi
+
+mail:
+  enabled: false
+
+## items in this list will translate to site path mappings. Api, admin and
+## status are already created for you.
+site_mappings:
+- name: site
+  host: example-site.com
+  source: "/"
+  target: "/portal/master/site"
+  ## the above example mapping will be rendered as the following:
+  ## mapping.site.host = enonic-site.com
+  ## mapping.site.source = /
+  ## mapping.site.target = /portal/master/site

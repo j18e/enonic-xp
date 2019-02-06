@@ -1,0 +1,26 @@
+{{- if .Values.mail.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mail
+  labels:
+    app: {{ .Release.Name }}-mail
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "enonic-site.chart" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mail
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mail
+    spec:
+      containers:
+      - name: mail
+        image: enoniccloud/postfix
+        ports:
+        - name: smtp
+          containerPort: 25
+{{- end }}

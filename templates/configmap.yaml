@@ -1,0 +1,39 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "enonic-site.chart" . }}
+data:
+  com.enonic.xp.app.main.cfg: |
+    tourDisabled = True
+  {{- if .Values.mail.enabled }}
+  com.enonic.xp.mail.cfg: |
+    smtpHost={{ .Release.Name }}-mail
+    smtpPort=25
+    smtpAuth=false
+    smtpTLS=false
+  {{- end }}
+  com.enonic.xp.web.vhost.cfg: |
+    enabled = true
+
+    mapping.admin.host = {{ .Values.external_name }}
+    mapping.admin.source = /admin
+    mapping.admin.target = /admin
+    mapping.admin.userStore = system
+
+    mapping.api.host = {{ .Values.external_name }}
+    mapping.api.source = /api
+    mapping.api.target = /api
+
+    mapping.status.host = {{ .Values.external_name }}
+    mapping.status.source = /status
+    mapping.status.target = /status
+
+    {{- range .Values.site_mappings }}
+    mapping.{{ .name }}.host = {{ .host }}
+    mapping.{{ .name }}.source = {{ .source }}
+    mapping.{{ .name }}.target = {{ .target }}
+    {{- end }}
