@@ -30,8 +30,6 @@ spec:
           mountPath: /enonic-xp/home/config
         - name: repo
           mountPath: /enonic-xp/home/repo
-        - name: work
-          mountPath: /enonic-xp/home/work
         - name: snapshots
           mountPath: /enonic-xp/home/snapshots
         ports:
@@ -60,16 +58,11 @@ spec:
       - name: repo
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}-repo
-      - name: work
-        persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-work
       - name: snapshots
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}-snapshots
       {{- else }}
       - name: repo
-        emptyDir: {}
-      - name: work
         emptyDir: {}
       - name: snapshots
         emptyDir: {}

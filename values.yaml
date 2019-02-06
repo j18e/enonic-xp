@@ -20,7 +20,6 @@ persistence:
   enabled: false
   ## default sizes for persistent volumes
   repo_size: 5Gi
-  work_size: 5Gi
   snapshots_size: 5Gi
 
 mail:
