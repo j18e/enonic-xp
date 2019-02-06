@@ -10,6 +10,12 @@ image: enonic/xp-app:latest
 ##
 external_name: example-site.com
 
+## set a password for the "su" admin account
+## can be plaintext or hashed
+## see https://xp.readthedocs.io/en/stable/operations/configuration.html#system-properties
+##
+# su_password:
+
 ingress:
   enabled: false
   annotations: {}

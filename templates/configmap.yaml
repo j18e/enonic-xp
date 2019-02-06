@@ -37,3 +37,7 @@ data:
     mapping.{{ .name }}.source = {{ .source }}
     mapping.{{ .name }}.target = {{ .target }}
     {{- end }}
+  {{- if .Values.su_password }}
+  system.properties: |
+    xp.suPassword = {{ .Values.su_password }}
+  {{- end }}
