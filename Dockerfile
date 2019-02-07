@@ -23,13 +23,12 @@ RUN mkdir -p \
     $XP_HOME/snapshots \
     $XP_HOME/repo
 
-RUN VERSION=1.0.5 \
-    wget -O $XP_HOME/deploy/snapshotter-${VERSION}.jar \
-    http://repo.enonic.com/public/com/enonic/app/snapshotter/${VERSION}/snapshotter-${VERSION}.jar
+ENV SNAPSHOTTER_VERSION=1.0.5
+ENV DATATOOLBOX_VERSION=2.2.3
 
-RUN VERSION=2.2.3 \
-    wget -O $XP_HOME/deploy/ \
-    https://dl.bintray.com/rcd-systems/rcd-repo/systems/rcd/enonic/datatoolbox/${VERSION}/datatoolbox-${VERSION}.jar
+RUN cd $XP_HOME/deploy && \
+    wget http://repo.enonic.com/public/com/enonic/app/snapshotter/${SNAPSHOTTER_VERSION}/snapshotter-${SNAPSHOTTER_VERSION}.jar && \
+    wget https://dl.bintray.com/rcd-systems/rcd-repo/systems/rcd/enonic/datatoolbox/${DATATOOLBOX_VERSION}/datatoolbox-${DATATOOLBOX_VERSION}.jar
 
 RUN chown $XP_USER:$XP_USER -R $XP_HOME
 
