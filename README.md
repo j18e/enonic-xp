@@ -1,10 +1,23 @@
-# helm-enonic-xp
+# enonic-xp
+A Docker image for Enonic XP along with a Helm chart for deploying to Kubernetes
 
-A Helm chart for deploying Enonic XP on Kubernetes
-
-## Deploying
+## Running development environment
 ```
-$ git clone https://github.com/j18e/helm-enonic-xp.git
-$ helm install helm-enonic-xp/charts/enonic-xp
+docker-compose up --build
 ```
 
+## Deploying to Kubernetes
+```
+helm install ./charts/enonic-xp
+```
+
+## Toolbox dump/restore
+From a running shell in the container:
+```
+$ENONIC_ROOT/toolbox/toolbox.sh dump -a su:$XP_SU_PASS -t /tmp/
+```
+
+To restore:
+```
+$ENONIC_ROOT/toolbox/toolbox.sh load -a su:$XP_SU_PASS -s /tmp/
+```

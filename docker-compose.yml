@@ -1,0 +1,11 @@
+version: '3'
+services:
+  exp:
+    build: .
+    restart: always
+    ports:
+    - "8080:8080"
+    volumes:
+    - "./dev/config:/enonic-xp/home/config:ro"
+    - "./tmp/repo:/enonic-xp/home/repo"
+    - "./tmp/snapshots:/enonic-xp/home/snapshots"
