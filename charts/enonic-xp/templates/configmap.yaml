@@ -33,6 +33,7 @@ data:
     mapping.status.target = /status
 
     {{- range .Values.site_mappings }}
+
     mapping.{{ .name }}.host = {{ .host }}
     mapping.{{ .name }}.source = {{ .source }}
     mapping.{{ .name }}.target = {{ .target }}
