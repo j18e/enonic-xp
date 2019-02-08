@@ -24,9 +24,10 @@ data:
     mapping.admin.target = /admin
     mapping.admin.userStore = system
 
-    mapping.api.host = {{ .Values.external_name }}
+    mapping.api.host = localhost
     mapping.api.source = /api
     mapping.api.target = /api
+    mapping.api.userStore = system
 
     mapping.status.host = localhost
     mapping.status.source = /status
@@ -37,6 +38,7 @@ data:
     mapping.{{ .name }}.host = {{ .host }}
     mapping.{{ .name }}.source = {{ .source }}
     mapping.{{ .name }}.target = {{ .target }}
+    {{ if .user_store }}mapping.{{ .name }}.userStore = {{ .user_store }}{{ end }}
     {{- end }}
   {{- if .Values.su_password }}
   system.properties: |

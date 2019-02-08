@@ -17,10 +17,6 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
-      ## ensures the pod will be redeployed when configmap.yaml changes
-      ##
-      annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       {{- if .Values.group_id }}
       securityContext:
@@ -41,7 +37,7 @@ spec:
           containerPort: 8080
         livenessProbe:
           httpGet:
-            path: /status
+            path: /status/server
             port: http
             httpHeaders:
             - name: Host
@@ -49,7 +45,7 @@ spec:
         readinessProbe:
           initialDelaySeconds: 15
           httpGet:
-            path: /status
+            path: /status/server
             port: http
             httpHeaders:
             - name: Host
