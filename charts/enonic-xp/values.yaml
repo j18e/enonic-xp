@@ -43,6 +43,7 @@ site_mappings:
   host: example-site.com
   source: "/"
   target: "/portal/master/site"
+  user_store: system
   ## the above example mapping will be rendered as the following:
   ## mapping.site.host = enonic-site.com
   ## mapping.site.source = /
