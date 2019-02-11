@@ -14,10 +14,10 @@ helm install ./charts/enonic-xp
 ## Toolbox dump/restore
 From a running shell in the container:
 ```
-$XP_ROOT/toolbox/toolbox.sh dump -a su:$XP_SU_PASS -t /tmp/
+$XP_ROOT/toolbox/toolbox.sh dump -a su:$XP_SU_PASS -t mydump
 ```
 
 To restore:
 ```
-$XP_ROOT/toolbox/toolbox.sh load -a su:$XP_SU_PASS -s /tmp/
+$XP_ROOT/toolbox/toolbox.sh load -a su:$XP_SU_PASS -s mydump
 ```
