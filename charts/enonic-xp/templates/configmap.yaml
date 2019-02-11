@@ -19,10 +19,6 @@ data:
   com.enonic.xp.web.vhost.cfg: |
     enabled = true
 
-    mapping.status.host = localhost
-    mapping.status.source = /
-    mapping.status.target = /site
-
     mapping.admin.host = {{ .Values.external_name }}
     mapping.admin.source = /admin
     mapping.admin.target = /admin
