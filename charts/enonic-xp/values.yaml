@@ -36,6 +36,14 @@ persistence:
 mail:
   enabled: false
 
+auth_file:
+  enabled: false
+  ## provide file name
+  # name: com.ad.provider.cfg
+  # lines:
+    # provider1.authorizationUrl: https://login.microsoftonline.com...
+    # provider1.clientId: https://login.microsoftonline.com...
+
 ## items in this list will translate to site path mappings. Api, admin and
 ## status are already created for you.
 site_mappings:

@@ -44,3 +44,9 @@ data:
   system.properties: |
     xp.suPassword = {{ .Values.su_password }}
   {{- end }}
+  {{- if .Values.auth_file.enabled }}
+  {{ .Values.auth_file.name }}: |
+  {{- range $key, $val := .Values.auth_file.lines }}
+    {{ $key }} = {{ $val }}
+  {{- end }}
+  {{- end }}
