@@ -9,6 +9,9 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ include "enonic-site.chart" . }}
 spec:
+  {{- if .Values.persistence.storageClassName }}
+  storageClassName: {{ .Values.persistence.storageClassName }}
+  {{- end }}
   accessModes:
   - ReadWriteOnce
   resources:
