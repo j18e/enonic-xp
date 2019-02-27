@@ -32,6 +32,8 @@ persistence:
   ## default sizes for persistent volumes
   repo_size: 5Gi
   snapshots_size: 5Gi
+  ## optionally specify storage class
+  # storageClassName: default
 
 mail:
   enabled: false
